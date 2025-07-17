@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,6 +14,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
 const PlaylistMatcher = () => {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [playlistText, setPlaylistText] = useState("");
   const [artists, setArtists] = useState<string[]>([]);
@@ -311,7 +313,7 @@ const PlaylistMatcher = () => {
           className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Home
+          {t('common.back_to_home')}
         </Link>
       </div>
       
@@ -321,11 +323,11 @@ const PlaylistMatcher = () => {
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               <span className="gradient-sunset bg-clip-text text-transparent animate-gradient">
-                Festival Playlist Matcher
+                {t('playlist_matcher.title')}
               </span>
             </h2>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Find festivals that match your music taste based on your playlist
+              {t('playlist_matcher.subtitle')}
             </p>
           </div>
         </div>

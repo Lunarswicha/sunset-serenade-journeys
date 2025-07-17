@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Star } from "lucide-react";
@@ -43,15 +44,17 @@ const experiences = [
 ];
 
 const ClientExperiences = () => {
+  const { t } = useTranslation();
+  
   return (
     <section className="py-20 px-4" id="experiences">
       <div className="container mx-auto">
         <div className="text-center mb-16">
           <h3 className="text-3xl font-bold mb-4">
-            <span className="gradient-sunset bg-clip-text text-transparent">Real Festival Experiences</span>
+            <span className="gradient-sunset bg-clip-text text-transparent">{t('client_experiences.title')}</span>
           </h3>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Read authentic reviews and stories from festival-goers who found their perfect adventure through GrooveFest.
+            {t('client_experiences.subtitle')}
           </p>
         </div>
 
@@ -99,7 +102,7 @@ const ClientExperiences = () => {
 
         <div className="mt-12 text-center">
           <p className="text-muted-foreground text-sm max-w-xl mx-auto">
-            Join thousands of music lovers who've discovered their perfect festival experience through our AI-powered recommendations. Your adventure awaits!
+            {t('client_experiences.cta')}
           </p>
         </div>
       </div>

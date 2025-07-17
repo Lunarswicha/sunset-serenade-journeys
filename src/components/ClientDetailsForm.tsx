@@ -127,34 +127,34 @@ const ClientDetailsForm = ({ onSubmit, aiResponse = "" }: ClientDetailsFormProps
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name *</Label>
+                <Label htmlFor="name">{t('form.contact.full_name')} *</Label>
                 <Input
                   id="name"
                   value={formData.name}
                   onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                  placeholder="John Doe"
+                  placeholder={t('form.contact.full_name_placeholder')}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">Email Address *</Label>
+                <Label htmlFor="email">{t('form.contact.email')} *</Label>
                 <Input
                   id="email"
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                  placeholder="john@example.com"
+                  placeholder={t('form.contact.email_placeholder')}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="phone">Phone Number</Label>
+                <Label htmlFor="phone">{t('form.contact.phone')}</Label>
                 <Input
                   id="phone"
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-                  placeholder="+1 (555) 123-4567"
+                  placeholder={t('form.contact.phone_placeholder')}
                 />
               </div>
             </div>
@@ -164,17 +164,17 @@ const ClientDetailsForm = ({ onSubmit, aiResponse = "" }: ClientDetailsFormProps
           <div className="space-y-4">
             <h3 className="text-lg font-semibold flex items-center">
               <Calendar className="w-5 h-5 mr-2 text-primary" />
-              Trip Details
+              {t('form.trip.title')}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="budget">Budget Range (EUR) *</Label>
+                <Label htmlFor="budget">{t('form.trip.budget')} *</Label>
                 <Select 
                   value={formData.budget} 
                   onValueChange={(value) => setFormData(prev => ({ ...prev, budget: value }))}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Select your budget" />
+                    <SelectValue placeholder={t('form.trip.budget_placeholder')} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="500-1000">€500 - €1,000</SelectItem>
@@ -186,13 +186,13 @@ const ClientDetailsForm = ({ onSubmit, aiResponse = "" }: ClientDetailsFormProps
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="travelers">Number of Travelers *</Label>
+                <Label htmlFor="travelers">{t('form.trip.travelers')} *</Label>
                 <Select 
                   value={formData.numTravelers} 
                   onValueChange={(value) => setFormData(prev => ({ ...prev, numTravelers: value }))}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="How many people?" />
+                    <SelectValue placeholder={t('form.trip.travelers_placeholder')} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="1">1 person</SelectItem>
@@ -204,22 +204,22 @@ const ClientDetailsForm = ({ onSubmit, aiResponse = "" }: ClientDetailsFormProps
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="dates">Preferred Travel Dates</Label>
+                <Label htmlFor="dates">{t('form.trip.dates')}</Label>
                 <Input
                   id="dates"
                   value={formData.travelDates}
                   onChange={(e) => setFormData(prev => ({ ...prev, travelDates: e.target.value }))}
-                  placeholder="e.g., July 2024, Summer 2024"
+                  placeholder={t('form.trip.dates_placeholder')}
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="duration">Trip Duration</Label>
+                <Label htmlFor="duration">{t('form.trip.duration')}</Label>
                 <Select 
                   value={formData.duration} 
                   onValueChange={(value) => setFormData(prev => ({ ...prev, duration: value }))}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="How long?" />
+                    <SelectValue placeholder={t('form.trip.duration_placeholder')} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="1-2days">1-2 days</SelectItem>
@@ -236,7 +236,7 @@ const ClientDetailsForm = ({ onSubmit, aiResponse = "" }: ClientDetailsFormProps
           <div className="space-y-4">
             <h3 className="text-lg font-semibold flex items-center">
               <Music className="w-5 h-5 mr-2 text-primary" />
-              Music Preferences
+              {t('form.preferences.music_title')}
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {musicGenreOptions.map((genre) => (
@@ -256,17 +256,17 @@ const ClientDetailsForm = ({ onSubmit, aiResponse = "" }: ClientDetailsFormProps
           <div className="space-y-4">
             <h3 className="text-lg font-semibold flex items-center">
               <MapPin className="w-5 h-5 mr-2 text-primary" />
-              Accommodation & Transport
+              {t('form.accommodation.title')}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="accommodation">Accommodation Preference</Label>
+                <Label htmlFor="accommodation">{t('form.accommodation.preference')}</Label>
                 <Select 
                   value={formData.accommodationType} 
                   onValueChange={(value) => setFormData(prev => ({ ...prev, accommodationType: value }))}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Select accommodation type" />
+                    <SelectValue placeholder={t('form.accommodation.preference_placeholder')} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="camping">Camping</SelectItem>
@@ -279,13 +279,13 @@ const ClientDetailsForm = ({ onSubmit, aiResponse = "" }: ClientDetailsFormProps
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="transport">Transport Needs</Label>
+                <Label htmlFor="transport">{t('form.accommodation.transport')}</Label>
                 <Select 
                   value={formData.transportNeeds} 
                   onValueChange={(value) => setFormData(prev => ({ ...prev, transportNeeds: value }))}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Transport preferences" />
+                    <SelectValue placeholder={t('form.accommodation.transport_placeholder')} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="flights">Flights included</SelectItem>
@@ -302,7 +302,7 @@ const ClientDetailsForm = ({ onSubmit, aiResponse = "" }: ClientDetailsFormProps
 
           {/* Special Requirements */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Special Requirements</h3>
+            <h3 className="text-lg font-semibold">{t('form.special.title')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="dietary">Dietary Requirements</Label>
@@ -345,14 +345,14 @@ const ClientDetailsForm = ({ onSubmit, aiResponse = "" }: ClientDetailsFormProps
             </div>
           </div>
 
-          <Button 
-            type="submit" 
-            size="lg" 
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
-          >
-            <DollarSign className="w-5 h-5 mr-2" />
-            Get My Personalized Quote
-          </Button>
+            <Button 
+              type="submit" 
+              size="lg" 
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+            >
+              <DollarSign className="w-5 h-5 mr-2" />
+              {t('form.submit')}
+            </Button>
         </form>
       </CardContent>
     </Card>

@@ -17,7 +17,7 @@ const Lockers = () => {
           className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Home
+          {t('common.back_to_home')}
         </Link>
       </div>
       
@@ -27,11 +27,11 @@ const Lockers = () => {
           <div className="max-w-4xl mx-auto">
             <h2 className="text-5xl md:text-7xl font-bold mb-6">
               <span className="gradient-sunset bg-clip-text text-transparent animate-gradient">
-                GrooveNomad x LockerZ
+                {t('lockers.title')}
               </span>
             </h2>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Secure storage solutions for festival-goers. Travel light, party hard.
+              {t('lockers.subtitle')}
             </p>
           </div>
         </div>
@@ -45,12 +45,12 @@ const Lockers = () => {
               <CardHeader>
                 <CardTitle className="flex items-center text-lg">
                   <Lock className="w-5 h-5 mr-2 text-primary" />
-                  Secure Storage
+                  {t('lockers.features.secure_storage')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  State-of-the-art lockers with electronic locks and 24/7 security monitoring.
+                  {t('lockers.features.secure_storage_desc')}
                 </p>
               </CardContent>
             </Card>
@@ -59,12 +59,12 @@ const Lockers = () => {
               <CardHeader>
                 <CardTitle className="flex items-center text-lg">
                   <MapPin className="w-5 h-5 mr-2 text-secondary" />
-                  Convenient Locations
+                  {t('lockers.features.convenient_locations')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Located at major festival entrances and transportation hubs.
+                  {t('lockers.features.convenient_locations_desc')}
                 </p>
               </CardContent>
             </Card>
@@ -73,12 +73,12 @@ const Lockers = () => {
               <CardHeader>
                 <CardTitle className="flex items-center text-lg">
                   <Clock className="w-5 h-5 mr-2 text-accent" />
-                  Flexible Hours
+                  {t('lockers.features.flexible_hours')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Available throughout the entire festival duration with 24/7 access.
+                  {t('lockers.features.flexible_hours_desc')}
                 </p>
               </CardContent>
             </Card>
@@ -90,7 +90,7 @@ const Lockers = () => {
       <section className="py-20 px-4">
         <div className="container mx-auto">
           <h3 className="text-3xl font-bold text-center mb-12">
-            Simple, <span className="gradient-sunset bg-clip-text text-transparent">Transparent Pricing</span>
+            {t('lockers.pricing.title')} <span className="gradient-sunset bg-clip-text text-transparent">{t('lockers.pricing.transparent')}</span>
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -190,14 +190,14 @@ const Lockers = () => {
       <section className="py-20 px-4 bg-card/30 backdrop-blur-sm">
         <div className="container mx-auto text-center">
           <h3 className="text-3xl font-bold mb-8">
-            Find a <span className="gradient-sunset bg-clip-text text-transparent">LockerZ</span> Near You
+            {t('lockers.locations.title')} <span className="gradient-sunset bg-clip-text text-transparent">{t('lockers.locations.lockerz')}</span> {t('lockers.locations.near_you')}
           </h3>
           <p className="text-muted-foreground mb-8">
-            Strategically placed at major festival venues and transport hubs across Europe.
+            {t('lockers.locations.description')}
           </p>
           <Button size="lg" className="bg-primary hover:bg-primary/90">
             <MapPin className="w-5 h-5 mr-2" />
-            View Locations
+            {t('lockers.locations.view_locations')}
           </Button>
         </div>
       </section>

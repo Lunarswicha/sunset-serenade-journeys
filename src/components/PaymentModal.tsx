@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,6 +22,7 @@ interface PaymentModalProps {
 }
 
 const PaymentModal = ({ open, onOpenChange, festival }: PaymentModalProps) => {
+  const { t } = useTranslation();
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentComplete, setPaymentComplete] = useState(false);
   const { toast } = useToast();
@@ -33,8 +35,8 @@ const PaymentModal = ({ open, onOpenChange, festival }: PaymentModalProps) => {
       setIsProcessing(false);
       setPaymentComplete(true);
       toast({
-        title: "Payment Successful! 🎉",
-        description: "Your festival tickets have been confirmed. Check your email for details.",
+        title: t('payment.success_title'),
+        description: t('payment.success_description'),
       });
     }, 2000);
   };
@@ -54,10 +56,10 @@ const PaymentModal = ({ open, onOpenChange, festival }: PaymentModalProps) => {
             <DialogHeader>
               <DialogTitle className="flex items-center">
                 <CreditCard className="w-5 h-5 mr-2 text-primary" />
-                Complete Your Booking
+                {t('payment.complete_booking')}
               </DialogTitle>
               <DialogDescription>
-                Secure your spot at {festival.name}
+                {t('payment.secure_spot', { festival: festival.name })}
               </DialogDescription>
             </DialogHeader>
 
@@ -77,7 +79,7 @@ const PaymentModal = ({ open, onOpenChange, festival }: PaymentModalProps) => {
                     </div>
                     <div className="flex items-center text-sm text-muted-foreground">
                       <Users className="w-4 h-4 mr-1" />
-                      {festival.capacity.toLocaleString()} capacity
+                      {t('payment.capacity', { count: festival.capacity })}
                     </div>
                   </div>
                 </CardContent>
@@ -86,23 +88,23 @@ const PaymentModal = ({ open, onOpenChange, festival }: PaymentModalProps) => {
               {/* Payment Form */}
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="your@email.com" />
+                  <Label htmlFor="email">{t('payment.email')}</Label>
+                  <Input id="email" type="email" placeholder={t('payment.email_placeholder')} />
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="card">Card Number</Label>
-                  <Input id="card" placeholder="1234 5678 9012 3456" />
+                  <Label htmlFor="card">{t('payment.card_number')}</Label>
+                  <Input id="card" placeholder={t('payment.card_number_placeholder')} />
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="expiry">Expiry</Label>
-                    <Input id="expiry" placeholder="MM/YY" />
+                    <Label htmlFor="expiry">{t('payment.expiry')}</Label>
+                    <Input id="expiry" placeholder={t('payment.expiry_placeholder')} />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="cvc">CVC</Label>
-                    <Input id="cvc" placeholder="123" />
+                    <Label htmlFor="cvc">{t('payment.cvc')}</Label>
+                    <Input id="cvc" placeholder={t('payment.cvc_placeholder')} />
                   </div>
                 </div>
               </div>
@@ -111,7 +113,7 @@ const PaymentModal = ({ open, onOpenChange, festival }: PaymentModalProps) => {
 
               {/* Total */}
               <div className="flex justify-between items-center text-lg font-semibold">
-                <span>Total</span>
+                <span>{t('payment.total')}</span>
                 <span className="text-primary">€{festival.price}</span>
               </div>
 
@@ -125,10 +127,10 @@ const PaymentModal = ({ open, onOpenChange, festival }: PaymentModalProps) => {
                 {isProcessing ? (
                   <div className="flex items-center">
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                    Processing...
+                    {t('payment.processing')}
                   </div>
                 ) : (
-                  `Pay €${festival.price}`
+                  t('payment.pay_amount', { amount: festival.price })
                 )}
               </Button>
             </div>
@@ -140,20 +142,20 @@ const PaymentModal = ({ open, onOpenChange, festival }: PaymentModalProps) => {
             </div>
             
             <div className="space-y-2">
-              <h3 className="text-xl font-semibold text-green-600">Payment Successful!</h3>
+              <h3 className="text-xl font-semibold text-green-600">{t('payment.success_title')}</h3>
               <p className="text-muted-foreground">
-                Your tickets for {festival.name} have been confirmed.
+                {t('payment.success_message', { festival: festival.name })}
               </p>
             </div>
 
             <div className="space-y-2 text-sm text-muted-foreground">
-              <p>🎫 Confirmation email sent</p>
-              <p>📱 Digital tickets available in app</p>
-              <p>🎉 Get ready for an amazing experience!</p>
+              <p>🎫 {t('payment.confirmation_sent')}</p>
+              <p>📱 {t('payment.digital_tickets')}</p>
+              <p>🎉 {t('payment.get_ready')}</p>
             </div>
 
             <Button onClick={resetModal} className="w-full">
-              Done
+              {t('payment.done')}
             </Button>
           </div>
         )}

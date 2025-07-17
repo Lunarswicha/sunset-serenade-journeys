@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Calendar, Users, Euro, Plane } from "lucide-react";
@@ -18,6 +19,7 @@ interface Festival {
   Website: string;
 }
 const FestivalExamples = () => {
+  const { t } = useTranslation();
   const [festivals, setFestivals] = useState<Festival[]>([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -42,10 +44,10 @@ const FestivalExamples = () => {
         <div className="container mx-auto">
           <div className="text-center mb-16">
             <h3 className="text-3xl font-bold mb-4">
-              <span className="gradient-sunset bg-clip-text text-transparent">Featured Festival Adventures</span>
+              <span className="gradient-sunset bg-clip-text text-transparent">{t('festival_examples.title')}</span>
             </h3>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Loading amazing festival experiences...
+              {t('festival_examples.loading')}
             </p>
           </div>
         </div>
