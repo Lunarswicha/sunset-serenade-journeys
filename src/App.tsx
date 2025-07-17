@@ -8,7 +8,6 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Lockers from "./pages/Lockers";
 import PlaylistMatcher from "./pages/PlaylistMatcher";
-import { LanguageSwitcher } from "./components/LanguageSwitcher";
 import "@/i18n/config";
 
 const queryClient = new QueryClient();
@@ -19,19 +18,12 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <div className="min-h-screen">
-          <header className="flex justify-between items-center p-4 border-b">
-            <div></div>
-            <LanguageSwitcher />
-          </header>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/lockers" element={<Lockers />} />
-            <Route path="/playlist-matcher" element={<PlaylistMatcher />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/lockers" element={<Lockers />} />
+          <Route path="/playlist-matcher" element={<PlaylistMatcher />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
