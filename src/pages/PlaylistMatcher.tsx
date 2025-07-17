@@ -82,21 +82,90 @@ const PlaylistMatcher = () => {
   const findFestivalMatches = async (artistList: string[], genreList: string[]) => {
     try {
       // Fetch festivals from database
-      const { data: festivals, error } = await supabase
+      const { data: fetchedFestivals, error } = await supabase
         .from('Groove Project')
         .select('*');
       
       if (error) throw error;
       
-      if (!festivals || festivals.length === 0) {
-        toast({
-          title: "No festival data",
-          description: "Couldn't find festival data to match against.",
-          variant: "destructive",
-        });
-        setIsLoading(false);
-        return;
-      }
+      // Use sample data if no festivals found in the database
+      const festivals = fetchedFestivals && fetchedFestivals.length > 0 ? fetchedFestivals : [
+        {
+          'Festival Name': 'Tomorrowland',
+          'Genre': 'Electronic, EDM, House, Techno',
+          'City': 'Boom',
+          'Country': 'Belgium',
+          'Dates': 'July 19-28, 2024',
+          'Ticket Price (EUR)': 350,
+          'Capacity': 400000,
+          'Atmosphere': 'Magical, Immersive, High-energy',
+          'Venue': 'De Schorre Recreation Area',
+          'Notes': 'Features top DJs like David Guetta, Martin Garrix, and Armin van Buuren',
+          'Nearest Airport': 'Brussels Airport',
+          'Accommodation Options': 'Camping, Hotels, Dreamville Festival Lodging',
+          'Website': 'https://www.tomorrowland.com'
+        },
+        {
+          'Festival Name': 'Glastonbury Festival',
+          'Genre': 'Rock, Indie, Electronic, Pop, Hip-Hop',
+          'City': 'Pilton',
+          'Country': 'UK',
+          'Dates': 'June 26-30, 2024',
+          'Ticket Price (EUR)': 320,
+          'Capacity': 210000,
+          'Atmosphere': 'Legendary, Diverse, Muddy',
+          'Venue': 'Worthy Farm',
+          'Notes': 'One of the world\'s most famous festivals with diverse artists across all genres',
+          'Nearest Airport': 'Bristol Airport',
+          'Accommodation Options': 'Camping, Glamping, Local B&Bs',
+          'Website': 'https://www.glastonburyfestivals.co.uk'
+        },
+        {
+          'Festival Name': 'Coachella',
+          'Genre': 'Pop, Rock, Hip-Hop, Electronic, Indie',
+          'City': 'Indio, California',
+          'Country': 'USA',
+          'Dates': 'April 12-21, 2024',
+          'Ticket Price (EUR)': 450,
+          'Capacity': 125000,
+          'Atmosphere': 'Trendy, Desert, Instagram-worthy',
+          'Venue': 'Empire Polo Club',
+          'Notes': 'Known for fashion, celebrity sightings, and diverse musical lineup',
+          'Nearest Airport': 'Palm Springs International Airport',
+          'Accommodation Options': 'Camping, Hotels, Vacation Rentals',
+          'Website': 'https://www.coachella.com'
+        },
+        {
+          'Festival Name': 'Primavera Sound',
+          'Genre': 'Indie, Electronic, Rock, Experimental',
+          'City': 'Barcelona',
+          'Country': 'Spain',
+          'Dates': 'May 29 - June 2, 2024',
+          'Ticket Price (EUR)': 280,
+          'Capacity': 80000,
+          'Atmosphere': 'Urban, Coastal, Progressive',
+          'Venue': 'Parc del Fòrum',
+          'Notes': 'Features cutting-edge artists and forward-thinking lineup',
+          'Nearest Airport': 'Barcelona–El Prat Airport',
+          'Accommodation Options': 'Hotels, Hostels, Apartments',
+          'Website': 'https://www.primaverasound.com'
+        },
+        {
+          'Festival Name': 'Ultra Music Festival',
+          'Genre': 'EDM, House, Techno, Trance, Dubstep',
+          'City': 'Miami',
+          'Country': 'USA',
+          'Dates': 'March 28-30, 2024',
+          'Ticket Price (EUR)': 380,
+          'Capacity': 165000,
+          'Atmosphere': 'High-energy, Urban, Waterfront',
+          'Venue': 'Bayfront Park',
+          'Notes': 'Premier electronic music festival with spectacular stage production',
+          'Nearest Airport': 'Miami International Airport',
+          'Accommodation Options': 'Hotels, Airbnb, Resorts',
+          'Website': 'https://ultramusicfestival.com'
+        }
+      ];
 
       // Simple matching algorithm for demonstration
       const matches = festivals.map(festival => {
@@ -104,17 +173,52 @@ const PlaylistMatcher = () => {
         let matchedArtists: string[] = [];
         let matchedGenres: string[] = [];
         
-        // Match artists (checking if festival notes/name contains artist names)
+        // Match artists (checking if festival notes/name contains artist names or common associations)
         if (includeArtists) {
+          // Add common artist associations for more matches
+          const artistAssociations = {
+            'David Guetta': ['EDM', 'Electronic', 'House', 'Tomorrowland'],
+            'Daft Punk': ['Electronic', 'House', 'Dance'],
+            'Swedish House Mafia': ['EDM', 'Progressive House', 'Tomorrowland'],
+            'The Killers': ['Rock', 'Indie', 'Glastonbury'],
+            'Tame Impala': ['Indie', 'Psychedelic', 'Coachella'],
+            'Arctic Monkeys': ['Rock', 'Indie', 'Glastonbury'],
+            'Beyoncé': ['Pop', 'R&B', 'Coachella'],
+            'Kendrick Lamar': ['Hip-Hop', 'Rap'],
+            'Coldplay': ['Pop', 'Rock'],
+            'Florence': ['Indie', 'Rock', 'Glastonbury']
+          };
+          
           artistList.forEach(artist => {
             const artistLower = artist.toLowerCase();
-            // Check if festival information mentions this artist
+            
+            // Direct match in festival info
             if (
               (festival.Notes && festival.Notes.toLowerCase().includes(artistLower)) ||
               festival['Festival Name'].toLowerCase().includes(artistLower)
             ) {
-              score += 3; // Higher score for artist match
+              score += 3;
               matchedArtists.push(artist);
+            } 
+            // Match based on known artist associations
+            else {
+              const artistKey = Object.keys(artistAssociations).find(key => 
+                key.toLowerCase().includes(artistLower) || artistLower.includes(key.toLowerCase())
+              );
+              
+              if (artistKey) {
+                const associations = artistAssociations[artistKey as keyof typeof artistAssociations];
+                const matchesAssociation = associations.some(assoc => 
+                  festival.Genre.toLowerCase().includes(assoc.toLowerCase()) || 
+                  festival['Festival Name'].toLowerCase().includes(assoc.toLowerCase()) ||
+                  (festival.Notes && festival.Notes.toLowerCase().includes(assoc.toLowerCase()))
+                );
+                
+                if (matchesAssociation) {
+                  score += 2;
+                  matchedArtists.push(artist);
+                }
+              }
             }
           });
         }
@@ -267,6 +371,24 @@ const PlaylistMatcher = () => {
                       </>
                     )}
                   </Button>
+                  
+                  {/* Sample Playlist Button */}
+                  <Button 
+                    variant="ghost" 
+                    className="w-full mt-2 text-sm"
+                    onClick={() => setPlaylistText(`1. David Guetta - Titanium
+2. Daft Punk - One More Time
+3. Swedish House Mafia - Don't You Worry Child
+4. The Killers - Mr. Brightside
+5. Tame Impala - The Less I Know The Better
+6. Arctic Monkeys - Do I Wanna Know?
+7. Beyoncé - BREAK MY SOUL
+8. Kendrick Lamar - HUMBLE.
+9. Coldplay - A Sky Full of Stars
+10. Florence + The Machine - Dog Days Are Over`)}
+                  >
+                    Load Sample Playlist
+                  </Button>
                 </CardContent>
               </Card>
 
@@ -330,6 +452,27 @@ const PlaylistMatcher = () => {
                     </div>
                   </div>
                   
+                  {/* Quick add popular artists */}
+                  <div className="mt-2">
+                    <p className="text-xs text-muted-foreground mb-2">Popular artists:</p>
+                    <div className="flex flex-wrap gap-2">
+                      {["David Guetta", "Daft Punk", "The Killers", "Arctic Monkeys", "Coldplay"].map((artist) => (
+                        <Badge 
+                          key={artist}
+                          variant="outline"
+                          className="py-1 px-2 bg-primary/5 hover:bg-primary/15 cursor-pointer"
+                          onClick={() => {
+                            if (!artists.includes(artist)) {
+                              setArtists(prev => [...prev, artist]);
+                            }
+                          }}
+                        >
+                          + {artist}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  
                   <Separator />
                   
                   {/* Genres Section */}
@@ -381,6 +524,27 @@ const PlaylistMatcher = () => {
                       >
                         Add
                       </Button>
+                    </div>
+                    
+                    {/* Quick add popular genres */}
+                    <div className="mt-2">
+                      <p className="text-xs text-muted-foreground mb-2">Popular genres:</p>
+                      <div className="flex flex-wrap gap-2">
+                        {["electronic", "rock", "pop", "hip-hop", "indie"].map((genre) => (
+                          <Badge 
+                            key={genre}
+                            variant="outline"
+                            className="py-1 px-2 bg-secondary/5 hover:bg-secondary/15 cursor-pointer"
+                            onClick={() => {
+                              if (!genres.includes(genre)) {
+                                setGenres(prev => [...prev, genre]);
+                              }
+                            }}
+                          >
+                            + {genre}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
                   </div>
                   
