@@ -3,9 +3,58 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { MapPin, Music, Search, Sparkles, Calendar, Users } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [aiResponse, setAiResponse] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+
+  const handleAiQuery = async () => {
+    if (!searchQuery.trim()) {
+      toast({
+        title: "Please enter a question",
+        description: "Ask me anything about festivals, destinations, or music!",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('ai-chat', {
+        body: { 
+          query: searchQuery,
+          query_type: 'general'
+        }
+      });
+
+      if (error) throw error;
+      
+      setAiResponse(data.response);
+      toast({
+        title: "AI Response Ready",
+        description: "I've found some great recommendations for you!",
+      });
+    } catch (error) {
+      console.error('Error calling AI:', error);
+      toast({
+        title: "Error",
+        description: "Sorry, I couldn't process your request. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleAiQuery();
+    }
+  };
 
   return (
     <div className="min-h-screen gradient-night">
@@ -58,17 +107,39 @@ const Index = () => {
                   placeholder="Ask AI: 'Find me electronic festivals in Europe this summer'"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyPress={handleKeyPress}
                   className="pl-12 pr-4 py-6 text-lg bg-card/50 backdrop-blur-sm border-border/50 focus:border-primary/50 focus:ring-primary/20"
                 />
               </div>
               <Button 
                 size="lg" 
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary hover:bg-primary/90 text-primary-foreground px-8 glow-primary"
+                onClick={handleAiQuery}
+                disabled={isLoading}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary hover:bg-primary/90 text-primary-foreground px-8 glow-primary disabled:opacity-50"
               >
                 <Sparkles className="w-5 h-5 mr-2" />
-                Ask AI
+                {isLoading ? "Thinking..." : "Ask AI"}
               </Button>
             </div>
+
+            {/* AI Response */}
+            {aiResponse && (
+              <div className="max-w-4xl mx-auto mb-8">
+                <Card className="bg-card/50 backdrop-blur-sm border-border/50 shadow-lg">
+                  <CardHeader>
+                    <CardTitle className="flex items-center text-primary">
+                      <Sparkles className="w-5 h-5 mr-2" />
+                      AI Recommendations
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="prose prose-invert max-w-none">
+                      <p className="text-foreground whitespace-pre-wrap">{aiResponse}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
 
             {/* Quick Actions */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
