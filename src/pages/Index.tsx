@@ -8,13 +8,17 @@ import { useToast } from "@/hooks/use-toast";
 import FestivalExamples from "@/components/FestivalExamples";
 import PaymentModal from "@/components/PaymentModal";
 import ClientExperiences from "@/components/ClientExperiences";
+import ClientDetailsForm, { ClientFormData } from "@/components/ClientDetailsForm";
+import { useFormSubmission } from "@/hooks/useFormSubmission";
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [aiResponse, setAiResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
+  const [showDetailsForm, setShowDetailsForm] = useState(false);
   const { toast } = useToast();
+  const { submitForm, isSubmitting } = useFormSubmission();
 
   const demoFestival = {
     name: "Electric Paradise Festival",
@@ -65,6 +69,31 @@ const Index = () => {
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       handleAiQuery();
+    }
+  };
+
+  const handleFormSubmit = async (formData: ClientFormData) => {
+    try {
+      // Add the search query and AI response to the form data
+      const completeFormData = {
+        ...formData,
+        originalQuery: searchQuery,
+        aiRecommendation: aiResponse
+      };
+
+      await submitForm(completeFormData);
+      setShowDetailsForm(false);
+      
+      toast({
+        title: "Quote Request Submitted",
+        description: "We'll process your information and send you a personalized quote within 24 hours.",
+      });
+    } catch (error) {
+      toast({
+        title: "Submission Failed",
+        description: "There was an error submitting your request. Please try again.",
+        variant: "destructive",
+      });
     }
   };
 
@@ -148,13 +177,21 @@ const Index = () => {
                     <div className="prose prose-invert max-w-none">
                       <p className="text-foreground whitespace-pre-wrap">{aiResponse}</p>
                     </div>
-                    <div className="mt-6 pt-4 border-t border-border">
+                    <div className="mt-6 pt-4 border-t border-border flex gap-3 flex-wrap">
                       <Button 
-                        onClick={() => setPaymentModalOpen(true)}
+                        onClick={() => setShowDetailsForm(true)}
                         className="bg-primary hover:bg-primary/90 text-primary-foreground"
                       >
+                        <Users className="w-4 h-4 mr-2" />
+                        Get Personalized Quote
+                      </Button>
+                      <Button 
+                        onClick={() => setPaymentModalOpen(true)}
+                        variant="outline"
+                        className="border-primary/50 text-primary hover:bg-primary/10"
+                      >
                         <CreditCard className="w-4 h-4 mr-2" />
-                        Book Festival Experience
+                        Quick Book
                       </Button>
                     </div>
                   </CardContent>
@@ -209,6 +246,27 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Client Details Form */}
+      {showDetailsForm && (
+        <section className="py-12 px-4">
+          <div className="container mx-auto">
+            <ClientDetailsForm 
+              onSubmit={handleFormSubmit} 
+              aiResponse={aiResponse}
+            />
+            <div className="text-center mt-6">
+              <Button 
+                variant="ghost" 
+                onClick={() => setShowDetailsForm(false)}
+                className="text-muted-foreground hover:text-primary"
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Example Festival Adventures Section */}
       <ClientExperiences />
