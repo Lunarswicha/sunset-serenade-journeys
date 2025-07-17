@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import FestivalExamples from "@/components/FestivalExamples";
 import PaymentModal from "@/components/PaymentModal";
+import ClientExperiences from "@/components/ClientExperiences";
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -210,6 +211,9 @@ const Index = () => {
       </section>
 
       {/* Example Festival Adventures Section */}
+      <ClientExperiences />
+      
+      {/* Featured Festivals Section */}
       <FestivalExamples />
 
       {/* Features Section */}
