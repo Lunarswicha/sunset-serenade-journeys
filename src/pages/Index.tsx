@@ -118,8 +118,8 @@ const Index = () => {
               <a href="#destinations" className="text-muted-foreground hover:text-primary transition-colors">
                 Destinations
               </a>
-              <a href="#artists" className="text-muted-foreground hover:text-primary transition-colors">
-                Artists
+              <a href="/lockers" className="text-muted-foreground hover:text-primary transition-colors">
+                GrooveNomad x LockerZ
               </a>
             </nav>
           </div>

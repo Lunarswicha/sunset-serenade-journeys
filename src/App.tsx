@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import Lockers from "./pages/Lockers";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
 import "@/i18n/config";
 
@@ -24,6 +25,7 @@ const App = () => (
           </header>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/lockers" element={<Lockers />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
