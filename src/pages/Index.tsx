@@ -107,7 +107,11 @@ const Index = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <Music className="w-8 h-8 text-primary" />
+              <img 
+                src="/lovable-uploads/775daf48-10bf-458d-969d-5c45bcd50140.png" 
+                alt="Groove Nomad Logo" 
+                className="w-8 h-8"
+              />
               <h1 className="text-2xl font-bold gradient-sunset bg-clip-text text-transparent">
                 Groove Nomad
               </h1>
@@ -340,7 +344,11 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center space-x-2 mb-4 md:mb-0">
-              <Music className="w-6 h-6 text-primary" />
+              <img 
+                src="/lovable-uploads/775daf48-10bf-458d-969d-5c45bcd50140.png" 
+                alt="Groove Nomad Logo" 
+                className="w-6 h-6"
+              />
               <span className="text-lg font-semibold">Groove Nomad</span>
             </div>
             <div className="flex flex-col items-center md:items-end space-y-2">
