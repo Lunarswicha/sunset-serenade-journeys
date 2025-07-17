@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { MapPin, Music, Search, Sparkles, Calendar, Users } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import FestivalExamples from "@/components/FestivalExamples";
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -188,6 +189,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Example Festival Adventures Section */}
+      <FestivalExamples />
 
       {/* Features Section */}
       <section className="py-20 px-4">

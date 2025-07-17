@@ -36,42 +36,84 @@ serve(async (req) => {
       console.error('Error storing query:', insertError);
     }
 
-    // Mock AI response for now - will be replaced with actual AI integration
+    // Query the Groove Project table for real festival data
+    const { data: festivals, error: festivalError } = await supabase
+      .from('Groove Project')
+      .select('*')
+      .limit(10);
+
+    if (festivalError) {
+      console.error('Error fetching festivals:', festivalError);
+    }
+
+    // Generate AI response based on real festival data
     let mockResponse = '';
     
-    switch (query_type) {
-      case 'destination':
-        mockResponse = `Based on your request "${query}", I recommend checking out these amazing festival destinations:
+    if (festivals && festivals.length > 0) {
+      switch (query_type) {
+        case 'destination':
+          const destinations = festivals.slice(0, 3).map(f => 
+            `🎵 **${f.City}, ${f.Country}** - ${f['Festival Name']} (${f.Genre}) at ${f.Venue}`
+          ).join('\n        ');
+          
+          mockResponse = `Based on your request "${query}", here are amazing festival destinations from our database:
         
-        🎵 **Berlin, Germany** - Known for its electronic music scene with festivals like Love Parade and Fusion Festival
-        🎪 **Barcelona, Spain** - Home to Primavera Sound and Sonar, perfect for indie and electronic music lovers
-        🎸 **Austin, Texas** - The live music capital with SXSW and Austin City Limits Music Festival
+        ${destinations}
         
-        Would you like more details about any of these destinations?`;
-        break;
+        Each destination offers unique experiences with different genres and atmospheres. Would you like more details about any of these locations?`;
+          break;
+          
+        case 'event':
+          const events = festivals.slice(0, 3).map(f => 
+            `🎶 **${f['Festival Name']}** - ${f.Dates}, ${f.City}, ${f.Country}\n           Genre: ${f.Genre} | Capacity: ${f.Capacity.toLocaleString()} | €${f['Ticket Price (EUR)']}`
+          ).join('\n        ');
+          
+          mockResponse = `Here are exciting festivals based on "${query}":
         
-      case 'event':
-        mockResponse = `Here are some exciting festivals based on "${query}":
+        ${events}
         
-        🎶 **Coachella 2024** - April 12-14 & 19-21, Indio, California
-        🎵 **Tomorrowland** - July 19-21 & 26-28, Boom, Belgium  
-        🎸 **Glastonbury** - June 26-30, Somerset, England
+        Each festival offers unique artists and experiences. Which one interests you most?`;
+          break;
+          
+        case 'music':
+          const musicFestivals = festivals.filter(f => 
+            f.Genre.toLowerCase().includes(query.toLowerCase()) || 
+            f['Festival Name'].toLowerCase().includes(query.toLowerCase())
+          ).slice(0, 3);
+          
+          const musicResults = musicFestivals.length > 0 ? 
+            musicFestivals.map(f => 
+              `🎧 **${f['Festival Name']}** - ${f.Genre} in ${f.City}, ${f.Country}`
+            ).join('\n        ') :
+            festivals.slice(0, 3).map(f => 
+              `🎧 **${f['Festival Name']}** - ${f.Genre} in ${f.City}, ${f.Country}`
+            ).join('\n        ');
+          
+          mockResponse = `Discovering festivals based on "${query}":
         
-        Each offers unique artists and experiences. Which style interests you most?`;
-        break;
+        ${musicResults}
         
-      case 'music':
-        mockResponse = `Discovering music based on "${query}":
+        Want me to find more festivals in these genres or get details about tickets and travel?`;
+          break;
+          
+        default:
+          const randomFestivals = festivals.slice(0, 3).map(f => 
+            `🎪 **${f['Festival Name']}** - ${f.Genre} in ${f.City}, ${f.Country} (${f.Dates})`
+          ).join('\n        ');
+          
+          mockResponse = `I'd be happy to help you with "${query}"! Here are some featured festivals:
         
-        🎧 **Trending Artists**: Check out these artists performing at upcoming festivals
-        🎼 **Similar Genres**: Based on your taste, you might enjoy these genres
-        🎤 **Festival Lineups**: Here are festivals featuring similar artists
+        ${randomFestivals}
         
-        Want me to find festivals where these artists are performing?`;
-        break;
+        I can help you with:
+        🗺️ **Festival Destinations** - Find the perfect location for your next festival adventure
+        🎪 **Event Discovery** - Discover festivals matching your music taste and schedule  
+        🎵 **Music Exploration** - Find new artists and genres through festival lineups
         
-      default:
-        mockResponse = `I'd be happy to help you with "${query}"! I can assist you with:
+        What would you like to explore first?`;
+      }
+    } else {
+      mockResponse = `I'd be happy to help you with "${query}"! I can assist you with:
         
         🗺️ **Festival Destinations** - Find the perfect location for your next festival adventure
         🎪 **Event Discovery** - Discover festivals matching your music taste and schedule

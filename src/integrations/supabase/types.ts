@@ -14,168 +14,66 @@ export type Database = {
   }
   public: {
     Tables: {
-      artists: {
+      "Groove Project": {
         Row: {
-          bio: string | null
-          created_at: string
-          genre: string | null
-          id: string
-          image_url: string | null
-          name: string
-          updated_at: string
+          "Accommodation Options": string
+          Atmosphere: string
+          Capacity: number
+          City: string
+          Country: string
+          Currency: string
+          Dates: string
+          "Festival Name": string
+          Genre: string
+          "Nearest Airport": string
+          Notes: string
+          "Price Tier 1": number
+          "Price Tier 2": number
+          "Price Tier 3": number
+          "Ticket Price (EUR)": number
+          "Ticket Type": string
+          Venue: string
+          Website: string
         }
         Insert: {
-          bio?: string | null
-          created_at?: string
-          genre?: string | null
-          id?: string
-          image_url?: string | null
-          name: string
-          updated_at?: string
+          "Accommodation Options": string
+          Atmosphere: string
+          Capacity: number
+          City: string
+          Country: string
+          Currency: string
+          Dates: string
+          "Festival Name": string
+          Genre: string
+          "Nearest Airport": string
+          Notes: string
+          "Price Tier 1": number
+          "Price Tier 2": number
+          "Price Tier 3": number
+          "Ticket Price (EUR)": number
+          "Ticket Type": string
+          Venue: string
+          Website: string
         }
         Update: {
-          bio?: string | null
-          created_at?: string
-          genre?: string | null
-          id?: string
-          image_url?: string | null
-          name?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      destinations: {
-        Row: {
-          country: string
-          created_at: string
-          description: string | null
-          id: string
-          image_url: string | null
-          music_scene: string | null
-          name: string
-          updated_at: string
-        }
-        Insert: {
-          country: string
-          created_at?: string
-          description?: string | null
-          id?: string
-          image_url?: string | null
-          music_scene?: string | null
-          name: string
-          updated_at?: string
-        }
-        Update: {
-          country?: string
-          created_at?: string
-          description?: string | null
-          id?: string
-          image_url?: string | null
-          music_scene?: string | null
-          name?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      festival_artists: {
-        Row: {
-          artist_id: string
-          created_at: string
-          festival_id: string
-          id: string
-          performance_date: string | null
-          stage: string | null
-        }
-        Insert: {
-          artist_id: string
-          created_at?: string
-          festival_id: string
-          id?: string
-          performance_date?: string | null
-          stage?: string | null
-        }
-        Update: {
-          artist_id?: string
-          created_at?: string
-          festival_id?: string
-          id?: string
-          performance_date?: string | null
-          stage?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "festival_artists_artist_id_fkey"
-            columns: ["artist_id"]
-            isOneToOne: false
-            referencedRelation: "artists"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "festival_artists_festival_id_fkey"
-            columns: ["festival_id"]
-            isOneToOne: false
-            referencedRelation: "festivals"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      festivals: {
-        Row: {
-          created_at: string
-          date_end: string
-          date_start: string
-          description: string | null
-          id: string
-          image_url: string | null
-          location: string
-          name: string
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          date_end: string
-          date_start: string
-          description?: string | null
-          id?: string
-          image_url?: string | null
-          location: string
-          name: string
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          date_end?: string
-          date_start?: string
-          description?: string | null
-          id?: string
-          image_url?: string | null
-          location?: string
-          name?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      user_queries: {
-        Row: {
-          created_at: string
-          id: string
-          query: string
-          query_type: string | null
-          response: string | null
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          query: string
-          query_type?: string | null
-          response?: string | null
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          query?: string
-          query_type?: string | null
-          response?: string | null
+          "Accommodation Options"?: string
+          Atmosphere?: string
+          Capacity?: number
+          City?: string
+          Country?: string
+          Currency?: string
+          Dates?: string
+          "Festival Name"?: string
+          Genre?: string
+          "Nearest Airport"?: string
+          Notes?: string
+          "Price Tier 1"?: number
+          "Price Tier 2"?: number
+          "Price Tier 3"?: number
+          "Ticket Price (EUR)"?: number
+          "Ticket Type"?: string
+          Venue?: string
+          Website?: string
         }
         Relationships: []
       }
