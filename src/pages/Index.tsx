@@ -344,7 +344,7 @@ const Index = () => {
                 Discover your next festival adventure with AI-powered recommendations
               </p>
               <a 
-                href="https://discord.gg/groovefest" 
+                href="https://discord.gg/SFVTpTDnEA" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="inline-flex items-center px-4 py-2 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-lg transition-all duration-300 hover:scale-105 animate-fade-in"
