@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Lockers from "./pages/Lockers";
+import PlaylistMatcher from "./pages/PlaylistMatcher";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
 import "@/i18n/config";
 
@@ -26,6 +27,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/lockers" element={<Lockers />} />
+            <Route path="/playlist-matcher" element={<PlaylistMatcher />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

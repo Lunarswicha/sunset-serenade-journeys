@@ -122,6 +122,9 @@ const Index = () => {
               <Link to="/lockers" className="text-muted-foreground hover:text-primary transition-colors">
                 GrooveNomad x LockerZ
               </Link>
+              <Link to="/playlist-matcher" className="text-muted-foreground hover:text-primary transition-colors">
+                Playlist Matcher
+              </Link>
             </nav>
           </div>
         </div>
