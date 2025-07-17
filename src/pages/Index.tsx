@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { MapPin, Music, Search, Sparkles, Calendar, Users, CreditCard } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 import FestivalExamples from "@/components/FestivalExamples";
 import PaymentModal from "@/components/PaymentModal";
 import ClientExperiences from "@/components/ClientExperiences";
@@ -112,15 +113,15 @@ const Index = () => {
               </h1>
             </div>
             <nav className="hidden md:flex items-center space-x-6">
-              <a href="#festivals" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link to="#festivals" className="text-muted-foreground hover:text-primary transition-colors">
                 Festivals
-              </a>
-              <a href="#destinations" className="text-muted-foreground hover:text-primary transition-colors">
+              </Link>
+              <Link to="#destinations" className="text-muted-foreground hover:text-primary transition-colors">
                 Destinations
-              </a>
-              <a href="/lockers" className="text-muted-foreground hover:text-primary transition-colors">
+              </Link>
+              <Link to="/lockers" className="text-muted-foreground hover:text-primary transition-colors">
                 GrooveNomad x LockerZ
-              </a>
+              </Link>
             </nav>
           </div>
         </div>

@@ -1,14 +1,26 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MapPin, Lock, Clock, Shield, CreditCard, PackageCheck } from "lucide-react";
+import { MapPin, Lock, Clock, Shield, CreditCard, PackageCheck, ArrowLeft } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const Lockers = () => {
   const { t } = useTranslation();
 
   return (
     <div className="min-h-screen gradient-night">
+      {/* Back Button */}
+      <div className="container mx-auto px-4 py-4">
+        <Link 
+          to="/" 
+          className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to Home
+        </Link>
+      </div>
+      
       {/* Hero Section */}
       <section className="relative py-20 px-4">
         <div className="container mx-auto text-center">
