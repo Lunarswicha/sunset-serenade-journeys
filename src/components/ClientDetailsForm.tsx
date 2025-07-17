@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -44,6 +45,7 @@ export interface ClientFormData {
 
 const ClientDetailsForm = ({ onSubmit, aiResponse = "" }: ClientDetailsFormProps) => {
   const { toast } = useToast();
+  const { t } = useTranslation();
   const [formData, setFormData] = useState<ClientFormData>({
     name: "",
     email: "",
@@ -107,13 +109,13 @@ const ClientDetailsForm = ({ onSubmit, aiResponse = "" }: ClientDetailsFormProps
   return (
     <Card className="max-w-4xl mx-auto bg-card/50 backdrop-blur-sm border-border/50">
       <CardHeader>
-        <CardTitle className="flex items-center text-2xl">
-          <Send className="w-6 h-6 mr-3 text-primary" />
-          Get Your Personalized Festival Quote
-        </CardTitle>
-        <CardDescription>
-          Complete this form to receive a customized quote and recommendations based on your preferences.
-        </CardDescription>
+          <CardTitle className="flex items-center text-2xl">
+            <Send className="w-6 h-6 mr-3 text-primary" />
+            {t('form.title')}
+          </CardTitle>
+          <CardDescription>
+            {t('form.description')}
+          </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-8">
@@ -121,7 +123,7 @@ const ClientDetailsForm = ({ onSubmit, aiResponse = "" }: ClientDetailsFormProps
           <div className="space-y-4">
             <h3 className="text-lg font-semibold flex items-center">
               <Users className="w-5 h-5 mr-2 text-primary" />
-              Contact Information
+              {t('form.contact.title')}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">

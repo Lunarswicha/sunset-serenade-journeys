@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -19,6 +20,7 @@ const Index = () => {
   const [showDetailsForm, setShowDetailsForm] = useState(false);
   const { toast } = useToast();
   const { submitForm, isSubmitting } = useFormSubmission();
+  const { t } = useTranslation();
 
   const demoFestival = {
     name: "Electric Paradise Festival",
@@ -128,16 +130,12 @@ const Index = () => {
       <section className="relative py-20 px-4">
         <div className="container mx-auto text-center">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-5xl md:text-7xl font-bold mb-6">
-              Discover Your Next
-              <br />
-              <span className="gradient-sunset bg-clip-text text-transparent animate-gradient">
-                Festival Adventure
-              </span>
-            </h2>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Let AI guide you to the perfect festival destinations. Find amazing events, discover new music, and create unforgettable memories.
-            </p>
+              <h2 className="text-5xl md:text-7xl font-bold mb-6">
+                {t('hero.title')}
+              </h2>
+              <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+                {t('hero.subtitle')}
+              </p>
 
             {/* Search Bar */}
             <div className="relative max-w-2xl mx-auto mb-8">
@@ -183,7 +181,7 @@ const Index = () => {
                         className="bg-primary hover:bg-primary/90 text-primary-foreground"
                       >
                         <Users className="w-4 h-4 mr-2" />
-                        Get Personalized Quote
+                        {t('action.get_quote')}
                       </Button>
                       <Button 
                         onClick={() => setPaymentModalOpen(true)}
@@ -220,12 +218,12 @@ const Index = () => {
                 <CardHeader className="pb-4">
                   <CardTitle className="flex items-center text-lg group-hover:text-secondary transition-colors">
                     <CreditCard className="w-5 h-5 mr-2" />
-                    Get Quote
+                    {t('action.get_quote')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">
-                    Get personalized festival recommendations
+                    {t('action.personalized')}
                   </p>
                 </CardContent>
               </Card>
