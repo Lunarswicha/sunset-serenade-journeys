@@ -215,16 +215,17 @@ const Index = () => {
                 </CardContent>
               </Card>
 
-              <Card className="bg-card/30 backdrop-blur-sm border-border/50 hover:border-secondary/50 transition-all duration-300 hover:glow-secondary group">
+              <Card className="bg-card/30 backdrop-blur-sm border-border/50 hover:border-secondary/50 transition-all duration-300 hover:glow-secondary group cursor-pointer"
+                    onClick={() => setShowDetailsForm(true)}>
                 <CardHeader className="pb-4">
                   <CardTitle className="flex items-center text-lg group-hover:text-secondary transition-colors">
-                    <Calendar className="w-5 h-5 mr-2" />
-                    Browse Events
+                    <CreditCard className="w-5 h-5 mr-2" />
+                    Get Quote
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">
-                    Find festivals happening near you
+                    Get personalized festival recommendations
                   </p>
                 </CardContent>
               </Card>
