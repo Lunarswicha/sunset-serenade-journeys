@@ -14,6 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
+      Devis: {
+        Row: {
+          airtable_created_time: string | null
+          budget_from_travel_requests: number | null
+          name: string | null
+          whalesync_postgres_id: string
+        }
+        Insert: {
+          airtable_created_time?: string | null
+          budget_from_travel_requests?: number | null
+          name?: string | null
+          whalesync_postgres_id?: string
+        }
+        Update: {
+          airtable_created_time?: string | null
+          budget_from_travel_requests?: number | null
+          name?: string | null
+          whalesync_postgres_id?: string
+        }
+        Relationships: []
+      }
       "Groove Project": {
         Row: {
           "Accommodation Options": string
@@ -74,6 +95,51 @@ export type Database = {
           "Ticket Type"?: string
           Venue?: string
           Website?: string
+        }
+        Relationships: []
+      }
+      user_queries: {
+        Row: {
+          created_at: string
+          id: string
+          query: string
+          query_type: string
+          response: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          query: string
+          query_type?: string
+          response?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          query?: string
+          query_type?: string
+          response?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      User_queries: {
+        Row: {
+          created_at: string
+          id: number
+          Message: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          Message?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          Message?: string | null
         }
         Relationships: []
       }

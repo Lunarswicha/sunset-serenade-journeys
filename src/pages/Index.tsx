@@ -2,16 +2,26 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { MapPin, Music, Search, Sparkles, Calendar, Users } from "lucide-react";
+import { MapPin, Music, Search, Sparkles, Calendar, Users, CreditCard } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import FestivalExamples from "@/components/FestivalExamples";
+import PaymentModal from "@/components/PaymentModal";
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [aiResponse, setAiResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const { toast } = useToast();
+
+  const demoFestival = {
+    name: "Electric Paradise Festival",
+    price: 299,
+    dates: "July 15-17, 2024",
+    location: "Barcelona, Spain",
+    capacity: 50000
+  };
 
   const handleAiQuery = async () => {
     if (!searchQuery.trim()) {
@@ -136,6 +146,15 @@ const Index = () => {
                   <CardContent>
                     <div className="prose prose-invert max-w-none">
                       <p className="text-foreground whitespace-pre-wrap">{aiResponse}</p>
+                    </div>
+                    <div className="mt-6 pt-4 border-t border-border">
+                      <Button 
+                        onClick={() => setPaymentModalOpen(true)}
+                        className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                      >
+                        <CreditCard className="w-4 h-4 mr-2" />
+                        Book Festival Experience
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
@@ -265,6 +284,13 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      {/* Payment Modal */}
+      <PaymentModal 
+        open={paymentModalOpen}
+        onOpenChange={setPaymentModalOpen}
+        festival={demoFestival}
+      />
     </div>
   );
 };

@@ -53,26 +53,35 @@ serve(async (req) => {
       switch (query_type) {
         case 'destination':
           const destinations = festivals.slice(0, 3).map(f => 
-            `🎵 **${f.City}, ${f.Country}** - ${f['Festival Name']} (${f.Genre}) at ${f.Venue}`
-          ).join('\n        ');
+            `🎵 ${f.City}, ${f.Country} - ${f['Festival Name']} (${f.Genre})
+📅 Dates: ${f.Dates}
+💰 Price: €${f['Ticket Price (EUR)']}
+🏟️ Venue: ${f.Venue}
+✈️ Airport: ${f['Nearest Airport']}`
+          ).join('\n\n');
           
-          mockResponse = `Based on your request "${query}", here are amazing festival destinations from our database:
-        
-        ${destinations}
-        
-        Each destination offers unique experiences with different genres and atmospheres. Would you like more details about any of these locations?`;
+          mockResponse = `Based on your request "${query}", here are amazing festival destinations:
+
+${destinations}
+
+Each destination offers unique experiences with different genres and atmospheres. Ready to book your adventure?`;
           break;
           
         case 'event':
           const events = festivals.slice(0, 3).map(f => 
-            `🎶 **${f['Festival Name']}** - ${f.Dates}, ${f.City}, ${f.Country}\n           Genre: ${f.Genre} | Capacity: ${f.Capacity.toLocaleString()} | €${f['Ticket Price (EUR)']}`
-          ).join('\n        ');
+            `🎶 ${f['Festival Name']} - ${f.Genre}
+📅 When: ${f.Dates}
+📍 Where: ${f.City}, ${f.Country}
+💰 Tickets: €${f['Ticket Price (EUR)']}
+👥 Capacity: ${f.Capacity.toLocaleString()} people
+🎪 Atmosphere: ${f.Atmosphere}`
+          ).join('\n\n');
           
           mockResponse = `Here are exciting festivals based on "${query}":
-        
-        ${events}
-        
-        Each festival offers unique artists and experiences. Which one interests you most?`;
+
+${events}
+
+Each festival offers unique artists and experiences. Which one interests you most?`;
           break;
           
         case 'music':
@@ -83,34 +92,44 @@ serve(async (req) => {
           
           const musicResults = musicFestivals.length > 0 ? 
             musicFestivals.map(f => 
-              `🎧 **${f['Festival Name']}** - ${f.Genre} in ${f.City}, ${f.Country}`
-            ).join('\n        ') :
+              `🎧 ${f['Festival Name']} - ${f.Genre}
+📍 Location: ${f.City}, ${f.Country}
+📅 Dates: ${f.Dates}
+💰 From: €${f['Ticket Price (EUR)']}`
+            ).join('\n\n') :
             festivals.slice(0, 3).map(f => 
-              `🎧 **${f['Festival Name']}** - ${f.Genre} in ${f.City}, ${f.Country}`
-            ).join('\n        ');
+              `🎧 ${f['Festival Name']} - ${f.Genre}
+📍 Location: ${f.City}, ${f.Country}
+📅 Dates: ${f.Dates}
+💰 From: €${f['Ticket Price (EUR)']}`
+            ).join('\n\n');
           
           mockResponse = `Discovering festivals based on "${query}":
-        
-        ${musicResults}
-        
-        Want me to find more festivals in these genres or get details about tickets and travel?`;
+
+${musicResults}
+
+Want me to find more festivals in these genres or get details about tickets and travel?`;
           break;
           
         default:
           const randomFestivals = festivals.slice(0, 3).map(f => 
-            `🎪 **${f['Festival Name']}** - ${f.Genre} in ${f.City}, ${f.Country} (${f.Dates})`
-          ).join('\n        ');
+            `🎪 ${f['Festival Name']} - ${f.Genre}
+📍 ${f.City}, ${f.Country}
+📅 ${f.Dates}
+💰 €${f['Ticket Price (EUR)']}
+🎭 ${f.Atmosphere}`
+          ).join('\n\n');
           
           mockResponse = `I'd be happy to help you with "${query}"! Here are some featured festivals:
-        
-        ${randomFestivals}
-        
-        I can help you with:
-        🗺️ **Festival Destinations** - Find the perfect location for your next festival adventure
-        🎪 **Event Discovery** - Discover festivals matching your music taste and schedule  
-        🎵 **Music Exploration** - Find new artists and genres through festival lineups
-        
-        What would you like to explore first?`;
+
+${randomFestivals}
+
+I can help you with:
+🗺️ Festival Destinations - Find the perfect location for your next festival adventure
+🎪 Event Discovery - Discover festivals matching your music taste and schedule  
+🎵 Music Exploration - Find new artists and genres through festival lineups
+
+What would you like to explore first?`;
       }
     } else {
       mockResponse = `I'd be happy to help you with "${query}"! I can assist you with:
