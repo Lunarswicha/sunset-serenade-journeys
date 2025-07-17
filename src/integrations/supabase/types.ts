@@ -125,24 +125,6 @@ export type Database = {
         }
         Relationships: []
       }
-      User_queries: {
-        Row: {
-          created_at: string
-          id: number
-          Message: string | null
-        }
-        Insert: {
-          created_at?: string
-          id?: number
-          Message?: string | null
-        }
-        Update: {
-          created_at?: string
-          id?: number
-          Message?: string | null
-        }
-        Relationships: []
-      }
     }
     Views: {
       [_ in never]: never
