@@ -109,7 +109,7 @@ const Index = () => {
             <div className="flex items-center space-x-2">
               <Music className="w-8 h-8 text-primary" />
               <h1 className="text-2xl font-bold gradient-sunset bg-clip-text text-transparent">
-                GrooveFest
+                Groove Nomad
               </h1>
             </div>
             <nav className="hidden md:flex items-center space-x-6">
@@ -341,7 +341,7 @@ const Index = () => {
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center space-x-2 mb-4 md:mb-0">
               <Music className="w-6 h-6 text-primary" />
-              <span className="text-lg font-semibold">GrooveFest</span>
+              <span className="text-lg font-semibold">Groove Nomad</span>
             </div>
             <div className="flex flex-col items-center md:items-end space-y-2">
               <p className="text-muted-foreground text-sm">
