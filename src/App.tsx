@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Lockers from "./pages/Lockers";
 import PlaylistMatcher from "./pages/PlaylistMatcher";
+import Legal from "./pages/Legal";
 import "@/i18n/config";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/lockers" element={<Lockers />} />
           <Route path="/playlist-matcher" element={<PlaylistMatcher />} />
+          <Route path="/legal" element={<Legal />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

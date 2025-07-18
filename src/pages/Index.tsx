@@ -356,6 +356,14 @@ const Index = () => {
               <span className="text-lg font-semibold">Groove Nomad</span>
             </div>
             <div className="flex flex-col items-center md:items-end space-y-2">
+              <div className="flex items-center space-x-4 mb-2">
+                <a 
+                  href="/legal" 
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Mentions légales
+                </a>
+              </div>
               <p className="text-muted-foreground text-sm">
                 {t('footer.subtitle')}
               </p>
