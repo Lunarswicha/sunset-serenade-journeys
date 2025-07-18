@@ -1,9 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
-import { Shield, FileText, HelpCircle } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Shield, FileText, HelpCircle, ArrowLeft } from 'lucide-react';
 
 const Legal = () => {
   const { t } = useTranslation();
@@ -13,6 +15,14 @@ const Legal = () => {
       {/* Header */}
       <div className="border-b bg-card/30 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-8">
+          <div className="flex items-center justify-center mb-4">
+            <Button asChild variant="ghost" className="absolute left-4">
+              <Link to="/" className="flex items-center gap-2">
+                <ArrowLeft className="w-4 h-4" />
+                Retour à l'accueil
+              </Link>
+            </Button>
+          </div>
           <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
             Mentions Légales
           </h1>
